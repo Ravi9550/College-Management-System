@@ -1,0 +1,166 @@
+<script>
+
+    $(document).ready(function() {
+
+        // Pie Chart for overall Distribution of count for "Staff panel"
+
+        var options = {
+            series: [{{total_teaching_days}},{{total_present}},{{total_absent}},{{total_subjects}}],
+            chart: {
+            width: 530,
+            type: 'pie',
+          },
+          labels: ['Attendance', 'Presents', 'Absents', 'Subjects'],
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+          };
+
+          var chart = new ApexCharts(document.querySelector("#overall"), options);
+          chart.render();
+
+
+         
+         // donut chart
+          var subjectAttendanceData = {{ subject_attendance | safe }}
+
+            var options = {
+                series: subjectAttendanceData.map(subject => subject.total_present),
+                chart: {
+                    type: 'donut',
+                    height: 380,
+                },
+                labels: subjectAttendanceData.map(subject => subject.subject_name),
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 200,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '50%',
+                        }
+                    }
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#subjectss"), options);
+            chart.render(); 
+
+
+
+            var subjectAttendanceData = JSON.parse('{{ total_json | escapejs | safe }}');
+
+            var options = {
+                series: [
+                    {
+                        name: 'Present',
+                        data: subjectAttendanceData.map(subject => subject.total_present),
+                    },
+                    {
+                        name: 'Absent',
+                        data: subjectAttendanceData.map(subject => subject.total_absent),
+                    },
+                    {
+                        name: 'Total Teaching Days',
+                        data: subjectAttendanceData.map(subject => subject.total_teaching_days),
+                    },
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        dataLabels: {
+                            position: 'top',
+                        },
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetX: -6,
+                    style: {
+                        fontSize: '12px',
+                        colors: ['#fff'],
+                    },
+                },
+                stroke: {
+                    show: true,
+                    width: 1,
+                    colors: ['#fff'],
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                },
+                xaxis: {
+                    categories: subjectAttendanceData.map(subject => subject.subject_name),
+                },
+                yaxis: {
+                    min: 0,
+                    tickAmount: 5,
+                },
+                legend: {
+                    offsetY: 10,
+                },
+            };
+            
+            var chart = new ApexCharts(document.querySelector("#chartss"), options);
+            chart.render();
+
+
+
+
+            var subjectAttendanceData = {{ subject_attendance | safe }}
+
+            var options = {
+                series: subjectAttendanceData.map(subject => subject.total_teaching_days),
+                chart: {
+                    type: 'donut',
+                    height: 380,
+                },
+                labels: subjectAttendanceData.map(subject => subject.subject_name),
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            height: 300,
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '60%',
+                        }
+                    }
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#teaching_days"), options);
+            chart.render(); 
+            
+            
+
+        })
+</script>
