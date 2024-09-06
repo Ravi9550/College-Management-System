@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="content container-fluid">
+    <div class="page-header">
+       <div class="row align-items-center">
+          <div class="col">
+             <h3 class="page-title">Result</h3>
+             <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'Student_Home'  %}">Dashboard</a></li>
+                <li class="breadcrumb-item active">View Result</li>
+             </ul>
+          </div>
+
+          <div class="col-auto text-right float-right ml-auto">
+             <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+          </div>
+       </div>
+    </div>
+
+    {% include 'Includes/messages.html' %}
+    <div class="row">
+       <div class="col-sm-12">
+          <div class="card card-table">
+             <div class="card-body">
+                <div class="table-responsive">
+                   <table  id="table_id" class="table table-hover table-center mb-0">
+                      <thead>
+                         <tr>
+                            <th>ID</th>
+                            <th>Subject_Name</th>
+                            <th>Assignment Marks</th>
+                            <th>Exam Marks</th>
+
+                            <th >Result</th>
+
+                         </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in result %}
+                         <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.subject_id.subject_name}}</td>
+                            <td>{{i.assignment_marks}}</td>
+                            <td>{{i.exam_marks}}</td>
+                            <td>
+
+                                {% if total_marks >= 33 %}
+                                <span class = "badge badge-success"> PASS</span>
+                                {% else %}
+                                <span class = "badge badge-danger"> FAIL</span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            
+                         </tr>
+
+                         {% endfor %}
+                         
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+
+{% endblock %}

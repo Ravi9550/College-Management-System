@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+      <title>College - Welcome to CMS</title>
+      <link  rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;1,400&amp;display=swap"/>
+      <link rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.min.css' %}"/>
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/fontawesome.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome/css/all.min.css' %}"/>
+      <link rel="stylesheet" href="{% static 'assets/css/index.css' %}" />
+   </head>
+   <body>
+      <div class="background-container" id="backgroundContainer"></div>
+      <div class="welcome-message"><strong><h3>Welcome to College Management System</h3></strong></div>
+      <div class="top-buttons">
+         <a href="{% url 'loginpg' %}" class="btn btn-success">Sign In</a>
+      </div>
+      <div class="arrow arrow-left" onclick="changeBackground(-1)">&#9664;</div>
+      <div class="arrow arrow-right" onclick="changeBackground(1)">&#9654;</div>
+
+      <script>
+         document.addEventListener("DOMContentLoaded", function () {
+           var currentBackgroundIndex = 0;
+           var backgrounds = [
+            "{% static 'assets/img/new.jpg' %}",
+            "{% static 'assets/img/new1.jpg' %}",
+            "{% static 'assets/img/new2.jpg' %}",
+
+
+             "{% static 'assets/img/im1.jpg' %}",
+             "{% static 'assets/img/im2.jpg' %}",
+             "{% static 'assets/img/college_image.jpg' %}",
+            
+
+            
+           ];
+         
+           function changeBackground(direction) {
+             currentBackgroundIndex += direction;
+         
+             if (currentBackgroundIndex < 0) {
+               currentBackgroundIndex = backgrounds.length - 1;
+             } else if (currentBackgroundIndex >= backgrounds.length) {
+               currentBackgroundIndex = 0;
+             }
+         
+             var imageUrl = backgrounds[currentBackgroundIndex];
+             document.getElementById("backgroundContainer").style.backgroundImage =
+               "url(" + imageUrl + ")";
+           }
+         
+           changeBackground(0);
+
+           document
+             .querySelector(".arrow-left")
+             .addEventListener("click", function () {
+               changeBackground(-1);
+             });
+         
+           document
+             .querySelector(".arrow-right")
+             .addEventListener("click", function () {
+               changeBackground(1);
+             });
+         });
+      </script>
+      <script src="{% static 'assets/js/jquery-3.6.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/popper.min.js' %}"></script>
+      <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+      <script src="{% static 'assets/js/script.js' %}"></script>
+   </body>
+</html>

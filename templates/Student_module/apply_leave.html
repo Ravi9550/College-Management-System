@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header ml-3">
+    <div class="row align-items-center">
+       <div class="col" >
+          <h3 class="page-title mt-3">Student</h3>
+          <ul class="breadcrumb">
+             <li class="breadcrumb-item"><a href="{% url 'Student_Home'  %}">Dashboard</a></li>
+             <li class="breadcrumb-item active">Student</li>
+          </ul>
+       </div>
+
+       <div class="col-auto text-right float-right ml-auto">
+          <button  class="btn btn-primary mr-4"  data-toggle="modal" data-target=".bd-example-modal-lg" type = "button"><i class="fa fa-history"></i> History</a>
+       </div>
+    </div>
+ </div>
+
+
+<div class="row">
+  
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form action = "{% url 'Student_Leave_Save' %}"  method = "post" >
+            {% csrf_token %}
+            
+              <div class="col-12">
+                <h5 class="form-title"><span><strong>Apply For Leave </strong></span></h5>
+              </div>
+
+  
+
+             {% include 'Includes/messages.html' %}
+
+
+
+                <div class="col-sm-11">
+                    <div class="form-group">
+                      <label>Leave Date</label>
+                      <input type="date" class="form-control" name = "leave_date" required />
+                    </div>
+                  </div>
+
+                  <div class="col-sm-11">
+                    <div class="form-group">
+                        <label>Reason For Leave</label>
+                        <textarea class = "form-control"  name = "reason" style = "height :300px;" placeholder = "Describe Reason For Leave"  required></textarea>
+                      </div>
+                  </div>
+                  
+                
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary">Apply</button>
+              </div>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+
+        <div class = "modal-header">
+
+            <h5 class="modal-title" id="exampleModalLabel">History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+              <div class = "modal-body">
+
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                       <div class="card-body">
+                          <div class="table-responsive">
+                             <table  id="table_id" class="table table-hover table-center mb-0">
+                                <thead>
+                                   <tr>
+                                      <th>Date</th>
+                                      <th>Reason</th>
+                                    
+                                      <th>Status</th>
+                                      
+          
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                  {% for std in history %}
+                                   <tr>
+                                      <td>{{std.date}}</td>
+                                      <td>{{std.message}}</td>
+                                
+                                      <td >
+                                        <div class = "actions">
+
+                                          {% if std.status == 0 %}
+
+                                          <span class="badge badge-info">Request Pending</span>
+
+                                          {% elif std.status == 1 %}
+                                          <span class="badge badge-success">Accepted</span>
+
+                                          {% else %}
+                                          <span class="badge badge-danger">Rejected</span>
+
+
+                                          {% endif %}
+
+
+                                         
+                                   
+                                          </div>
+                                      </td>
+                                   </tr>
+          
+                                   {% endfor %}
+                                   
+                                </tbody>
+                             </table>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+
+              </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

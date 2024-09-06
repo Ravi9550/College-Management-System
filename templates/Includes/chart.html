@@ -1,0 +1,147 @@
+<script>
+
+      $(document).ready(function() {
+
+          // Pie Chart for overall Distribution of count for "HOD panel"
+
+          var options = {
+              series: [{{student}},{{course}},{{staff}},{{subject}}],
+              chart: {
+              width: 460,
+              type: 'pie',
+            },
+            labels: ['Students', 'Courses', 'Staff', 'Subject'],
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#apexcharts"), options);
+            chart.render();
+
+
+
+
+            
+
+
+
+
+         
+          // Bar chart for Gender Distribution
+          var options = {
+              series: [{
+              data: [{{boys}}, {{girls}}, {{others}}]
+            }],
+              chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                borderRadius: 4,
+                horizontal: false,
+              }
+            },
+
+            dataLabels: {
+              enabled: false
+            },
+            xaxis: {
+              categories: ['Boys', 'Girls','Others'],
+            }
+
+
+            };
+
+            var chart = new ApexCharts(document.querySelector("#Gender"), options);
+            chart.render();
+
+
+
+
+
+
+
+            // donut chart for sudent count in each course
+
+              var courseData = {{ course_data | safe }};
+              var options = {
+                  series: courseData.map(item => item.students_count),
+                  chart: {
+                      type: 'donut',
+                      height: 380,
+                  },
+                  labels: courseData.map(item => item.course_name),
+                  responsive: [{
+                      breakpoint: 480,
+                      options: {
+                          chart: {
+                              height: 200,
+                          },
+                          legend: {
+                              position: 'bottom'
+                          }
+                      }
+                  }],
+                  plotOptions: {
+                      pie: {
+                          donut: {
+                              size: '50%', 
+                          }
+                      }
+                  },
+              };
+
+              var chart = new ApexCharts(document.querySelector("#course"), options);
+              chart.render();
+
+
+
+
+            // donut chart for subject count in each course
+
+
+              var subjectData = {{ subject_data | safe }};
+              var options = {
+                  series: subjectData.map(item => item.subjects_count),
+                  chart: {
+                      type: 'donut',
+                      height: 380,
+                  },
+                  labels: subjectData.map(item => item.course_name),
+                  responsive: [{
+                      breakpoint: 480,
+                      options: {
+                          chart: {
+                              height: 200,
+                          },
+                          legend: {
+                              position: 'bottom'
+                          }
+                      }
+                  }],
+                  plotOptions: {
+                      pie: {
+                          donut: {
+                              size: '50%',  
+                          }
+                      }
+                  },
+              };
+
+              var chart = new ApexCharts(document.querySelector("#subject"), options);
+              chart.render();
+
+
+
+          })
+</script>
