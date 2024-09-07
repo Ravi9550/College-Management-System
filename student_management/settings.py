@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 """
 
-import mimetypes
-
-mimetypes.add_type("text/javascript", ".js", True)
 
 
 from pathlib import Path
@@ -55,9 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'student_management.urls'
 
